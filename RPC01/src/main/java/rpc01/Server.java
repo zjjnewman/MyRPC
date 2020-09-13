@@ -32,7 +32,7 @@ public class Server {
 
         Integer id =  dataInputStream.readInt();
         UserService service = new UserServiceImpl();
-        User user = service.FindUserById(id);
+        User user = service.findUserById(id);
 
         dataOutputStream.writeInt(user.getId());
         dataOutputStream.writeUTF(user.getName());

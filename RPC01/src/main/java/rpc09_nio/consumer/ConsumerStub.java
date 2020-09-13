@@ -1,13 +1,15 @@
-package rpc08_hession.consumer;
+package rpc09_nio.consumer;
 
 import com.caucho.hessian.io.Hessian2Input;
-import com.caucho.hessian.io.Hessian2StreamingInput;
-import com.caucho.hessian.io.Hessian2StreamingOutput;
-import com.caucho.hessian.io.HessianInput;
 import redis.clients.jedis.Jedis;
 
-import java.io.*;
-import java.lang.reflect.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -52,12 +54,10 @@ public class ConsumerStub {
                 InputStream inputStream = socket.getInputStream();
 //                ObjectInputStream ois = new ObjectInputStream(inputStream);
 //                Object o = ois.readObject();
-                Hessian2StreamingInput hsi = new Hessian2StreamingInput(inputStream);
-                Object o = hsi.readObject();
-
 //                ois.close();
-                oos.close();
-                hsi.close();
+//                oos.close();
+                Hessian2Input hsi = new Hessian2Input(inputStream);
+                Object o = hsi.readObject();
                 return o;
             }
         };

@@ -7,7 +7,7 @@ public class Client {
 
     public static void main(String[] args) {
         UserService service = Stub.getStub();
-        User user = service.FindUserById(123);
+        User user = service.findUserById(123);
         System.out.println(user);
     }
 }

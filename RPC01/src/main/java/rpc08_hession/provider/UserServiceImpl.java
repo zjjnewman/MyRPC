@@ -1,4 +1,4 @@
-package rpc05;
+package rpc08_hession.provider;
 
 import rpc.common.User;
 import rpc.common.UserService;

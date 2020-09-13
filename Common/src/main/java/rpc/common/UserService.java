@@ -1,7 +1,7 @@
 package rpc.common;
 
 public interface UserService {
-    public User FindUserById(Integer id);
+    public User findUserById(Integer id);
 
-    public User FindUserByName(String name);
+    public User findUserByName(String name);
 }

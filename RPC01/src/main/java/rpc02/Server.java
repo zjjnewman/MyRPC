@@ -2,7 +2,6 @@ package rpc02;
 
 import rpc.common.User;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,7 +26,7 @@ public class Server {
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
         Integer uid = dataInputStream.readInt();
-        User user = new UserServiceImpl().FindUserById(uid);
+        User user = new UserServiceImpl().findUserById(uid);
 
         dataOutputStream.writeInt(user.getId());
         dataOutputStream.writeUTF(user.getName());
@@ -41,7 +40,7 @@ public class Server {
         int uid = dataInputStream.readInt();
 
         UserServiceImpl userService = new UserServiceImpl();
-        User user = userService.FindUserById(uid);
+        User user = userService.findUserById(uid);
 
         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
 

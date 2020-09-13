@@ -27,7 +27,7 @@ public class Server {
 
         int id = dataInputStream.readInt();
 
-        User user = new UserServiceImpl().FindUserById(id);
+        User user = new UserServiceImpl().findUserById(id);
 
         dataOutputStream.writeInt(user.getId());
         dataOutputStream.writeUTF(user.getName());

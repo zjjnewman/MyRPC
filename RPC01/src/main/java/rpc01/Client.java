@@ -12,13 +12,13 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket("localhost", 8888);
-        OutputStream outputStream = socket.getOutputStream();
-        InputStream inputStream = socket.getInputStream();
 
+        OutputStream outputStream = socket.getOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         dataOutputStream.writeInt(2);
         dataOutputStream.flush();
 
+        InputStream inputStream = socket.getInputStream();
         DataInputStream dataInputStream = new DataInputStream(inputStream);
 
         System.out.println(new User(dataInputStream.readInt(), dataInputStream.readUTF()));

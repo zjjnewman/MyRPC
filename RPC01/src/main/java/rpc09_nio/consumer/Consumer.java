@@ -1,14 +1,11 @@
-package rpc08_hession.consumer;
+package rpc09_nio.consumer;
 
-import redis.clients.jedis.Jedis;
 import rpc.common.ProductA;
 import rpc.common.ProductService;
 import rpc.common.User;
 import rpc.common.UserService;
 
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.io.IOException;
 
 public class Consumer {
 
