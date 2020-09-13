@@ -1,6 +1,6 @@
 package rpc09_nio.consumer;
 
-import com.caucho.hessian.io.Hessian2Input;
+import com.caucho.hessian.io.Hessian2StreamingInput;
 import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
@@ -54,10 +54,12 @@ public class ConsumerStub {
                 InputStream inputStream = socket.getInputStream();
 //                ObjectInputStream ois = new ObjectInputStream(inputStream);
 //                Object o = ois.readObject();
-//                ois.close();
-//                oos.close();
-                Hessian2Input hsi = new Hessian2Input(inputStream);
+                Hessian2StreamingInput hsi = new Hessian2StreamingInput(inputStream);
                 Object o = hsi.readObject();
+
+//                ois.close();
+                oos.close();
+                hsi.close();
                 return o;
             }
         };

@@ -1,6 +1,6 @@
 package rpc09_nio.provider;
 
-import com.caucho.hessian.io.Hessian2Output;
+import com.caucho.hessian.io.Hessian2StreamingOutput;
 
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -40,7 +40,9 @@ public class Provider {
         OutputStream outputStream = socket.getOutputStream();
 //        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 //        objectOutputStream.writeObject(o);
-        Hessian2Output hso =new Hessian2Output(outputStream);
+//        Hessian2Output hso =new Hessian2Output(outputStream);
+//        hso.writeObject(o);
+        Hessian2StreamingOutput hso = new Hessian2StreamingOutput(outputStream);
         hso.writeObject(o);
         System.out.println(o);
     }
