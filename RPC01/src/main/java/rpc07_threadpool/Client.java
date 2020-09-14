@@ -8,9 +8,9 @@ public class Client {
 
     public static void main(String[] args) throws InterruptedException {
 
-//        doManyClient();
+        doManyClient();
         Thread.sleep(1000);
-        doClient();
+//        doClient();
     }
 
     public static void doManyClient(){

@@ -1,12 +1,9 @@
-package rpc09_nio.consumer;
+package rpc10_nio_threadpool.consumer;
 
-import com.sun.java.browser.plugin2.DOM;
 import rpc.common.ProductA;
 import rpc.common.ProductService;
 import rpc.common.User;
 import rpc.common.UserService;
-
-import java.io.IOException;
 
 public class Consumer {
 
