@@ -110,8 +110,19 @@ public class TestNonBlockingNIO {
         // 把通道注册到选择器，并指定"监听接收事件"
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
+        int size = selector.selectedKeys().size();
+
+        System.out.println("selector.selectedKeys().size(): "+selector.selectedKeys().size());
+
         // selector循环检测通道是否就绪，轮询式的获取选择器上已经"准备就绪的事件"
         while (selector.select() > 0){
+
+            if(selector.selectedKeys().size() != size){
+                size = selector.selectedKeys().size();
+                System.out.println("selector.selectedKeys().size(): "+size);
+            }
+
+
             // 有就绪通道，就获取就绪通道集合的迭代器
             // 获取当前选择器中所有的已经注册的选择键（已就绪的监听事件）
             Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
