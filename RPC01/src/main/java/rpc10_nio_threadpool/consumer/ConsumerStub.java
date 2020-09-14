@@ -24,7 +24,7 @@ public class ConsumerStub {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-                //  获取消费者元数据 获取接口名
+                //  获取被代理的消费者元数据 （接口名、方法名、参数类型、参数等）
                 String interfaceName = clazz.getName();
                 System.out.println("interfaceName: "+interfaceName);
                 // 获取方法名
@@ -54,7 +54,7 @@ public class ConsumerStub {
                 socketChannel.configureBlocking(false);
 
                 // 这一步是 通过流中转成 字节 然后 写入 nio的bytebuffer
-                // 告诉服务提供者诉求元数据
+                // 告诉服务提供者诉求元数据（接口名、方法名、参数类型、参数等）
                 ByteArrayOutputStream bos =new ByteArrayOutputStream();
                 Hessian2StreamingOutput hso = new Hessian2StreamingOutput(bos);
                 hso.writeObject(interfaceName);

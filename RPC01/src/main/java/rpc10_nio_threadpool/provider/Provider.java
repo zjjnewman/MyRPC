@@ -22,8 +22,9 @@ public class Provider {
 
     private static ExecutorService executorService = new ThreadPoolExecutor(
             3, 5,
-            60, TimeUnit.SECONDS,
-            new ArrayBlockingQueue<>(10000),
+            5, TimeUnit.SECONDS,
+//            new ArrayBlockingQueue<>(50),
+            new LinkedBlockingQueue<>(),
             new ThreadPoolExecutor.AbortPolicy()
     );
 
@@ -41,13 +42,11 @@ public class Provider {
     }
 
     private static void process(ServerSocketChannel serverSocketChannel) throws Exception {
-
         Selector selector = Selector.open();
         // 指定监听事件
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         int size = selector.selectedKeys().size();
         System.out.println("selector.selectedKeys().size(): "+selector.selectedKeys().size());
-
         while (selector.select() > 0){
 
             if(selector.selectedKeys().size() != size){
@@ -72,17 +71,18 @@ public class Provider {
                 } else if(selectionKey.isReadable()){
 
                     processOPRead(selectionKey);
-                    executorService.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                processOPRead(selectionKey);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
 
+                    // 这里使用线程池有个坑需要解决，报 not expect end file 异常。猜测线程池干扰了数据的接收。
+//                    executorService.execute(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                processOPRead(selectionKey);
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    });
                 }
                 // 这里如果不移除会报NullPointerException 异常 具体在107行 socketChannel.configureBlocking(false);
                 keyIterator.remove();
@@ -142,6 +142,7 @@ public class Provider {
             byteBuffer.flip();
             socketChannel.write(byteBuffer);
             System.out.println(o);
+            hso.close();
             byteBuffer.clear();
         }
     }

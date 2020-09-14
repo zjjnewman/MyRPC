@@ -22,6 +22,7 @@ public class Consumer {
                     e.printStackTrace();
                 }
             }).start();
+//            Thread.sleep(1000);
         }
     }
 
