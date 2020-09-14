@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Consumer {
 
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws Exception {
         UserService userService = (UserService) ConsumerStub.getConsumerStub(UserService.class);
         User user = userService.findUserById(1);
 

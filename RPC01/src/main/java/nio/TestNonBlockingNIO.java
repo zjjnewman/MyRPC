@@ -58,7 +58,7 @@ public class TestNonBlockingNIO {
     @Test
     public void client() throws IOException {
         // 获取通道
-        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9898));
+        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 8888));
 
         // 设置成非阻塞
         socketChannel.configureBlocking(false);
@@ -68,18 +68,21 @@ public class TestNonBlockingNIO {
 
         // 放入数据（可以改为循环放入数据）
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()){
-            byteBuffer.put((LocalDateTime.now().toString() + "\n").getBytes());
-            byteBuffer.put(scanner.next().getBytes());
-            // 切换缓冲区读模式
-            byteBuffer.flip();
+//        while (scanner.hasNext()){
+//            byteBuffer.put((LocalDateTime.now().toString() + "\n").getBytes());
+//            byteBuffer.put(scanner.next().getBytes());
+//            // 切换缓冲区读模式
+//            byteBuffer.flip();
+//
+//            // 把缓冲区数据 写入通道
+//            socketChannel.write(byteBuffer);
+//
+//            // 清空缓冲区
+//            byteBuffer.clear();
+//        }
 
-            // 把缓冲区数据 写入通道
-            socketChannel.write(byteBuffer);
-
-            // 清空缓冲区
-            byteBuffer.clear();
-        }
+        byteBuffer.put((LocalDateTime.now().toString() + "\n").getBytes());
+        byteBuffer.put(scanner.next().getBytes());
 
         // 关闭通道
         socketChannel.close();
@@ -99,7 +102,7 @@ public class TestNonBlockingNIO {
         serverSocketChannel.configureBlocking(false);
 
         // 绑定通道端口号
-        serverSocketChannel.bind(new InetSocketAddress(9898));
+        serverSocketChannel.bind(new InetSocketAddress(8888));
 
         // 创建选择器
         Selector selector = Selector.open();
